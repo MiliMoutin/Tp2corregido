@@ -18,3 +18,4 @@ typedef Simulation* PSimulation;
 PSimulation createSimulation(int n, int m, int nRobots);
 int Mode1(PSimulation s, allegro_t * allegro_p);
 void Mode2(PSimulation s);
+void destroySimulation(PSimulation s);
