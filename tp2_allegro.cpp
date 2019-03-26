@@ -52,7 +52,7 @@ bool init_allegro(allegro_t * allegro_p)
 		return 1;
 	}
 
-	allegro_p->font = al_load_ttf_font("OpenSans-Bold.ttf", 40, 0); //cargo fuente
+	allegro_p->font = al_load_ttf_font("OpenSans-Bold.ttf", 20, 0); //cargo fuente
 	if (!allegro_p->font) { //si falla lo aviso
 		fprintf(stderr, "Could not load 'OpenSans-Bold.ttf'.\n");
 		return 0;
@@ -194,8 +194,8 @@ devuelve: nada
 void Set_robot(float x, float y,float angle, allegro_t * allegro_p,float size_floor)
 {
 
-	//al_draw_scaled_rotated_bitmap(allegro_p->cleaner_robot,x*size_floor, y*size_floor, x*size_floor, y*size_floor, 0.0005*size_floor, 0.0005*size_floor,angle, 0);
-	al_draw_filled_circle(x*size_floor, y*size_floor, 0.2*size_floor, al_map_rgb(140, 210, 50));
+	al_draw_scaled_rotated_bitmap(allegro_p->cleaner_robot,0, 0, x*size_floor,y*size_floor, 0.001*size_floor, 0.001*size_floor,angle, 0);
+	//al_draw_filled_circle(x*size_floor, y*size_floor, 0.3*size_floor, al_map_rgb(140, 210, 50));
 	return;
 
 }

@@ -41,10 +41,10 @@ bool clean(PFloor f, double x, double y) {
 }
 
 
-bool validRange(PFloor f, double x, double y, double angle) {
+bool validRange(PFloor f, double x, double y, double angle,float size) {
 	double x_ = x + cos((angle*M_PI) / 180);
 	double y_ = y + sin((angle*M_PI) / 180);
-	if ((x_ > f->n) || (x_ < 0) || (y_ > f->m) || (y_ < 0))
+	if ((x_ > (f->n)-0.3) || (x_ < 0.3) || (y_ > (f->m) - 0.3) || (y_ < 0.3))
 		//verfica que la nueva posicion no se salga del mapa
 	{
 		return false ;

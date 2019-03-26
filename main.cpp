@@ -20,16 +20,17 @@
 #include "ParseCmdLine.h"
 
 using namespace std;
-int parseCallback(char *, char *, void *);	 //Declaracion de la funcion de callback
+int parseCallback(const char *,const char *, void *);	 //Declaracion de la funcion de callback
 
 
 
 #define FILAS	10
 #define COLUMNAS	10
+#define MAX_ARGS 4
 
 
 
-int main(int argc, char **argv)
+int main(int argc,const char *argv[])
 {
 	allegro_t allegro_data;						//Estructura para allegro
 	allegro_t * allegro_p = &allegro_data;
@@ -39,29 +40,24 @@ int main(int argc, char **argv)
 	srand(time(NULL));
 
 	//parsecmdline
-	
-	//MAX_ARGS =3 -> UserData guarda Fila, Columna, Nrobots
-	/*int		*UserData[MAX_ARGS];		//Arreglo de strings donde se guardan los parametros
+	enum opciones { fil, col, robots, mode };
+
+	//MAX_ARGS =4 -> UserData guarda Fila, Columna, Nrobots
+	int		UserData[MAX_ARGS];		//Arreglo de strings donde se guardan los parametros
 	int		parseCmdLine_Return;		//Variable que almacena el retorno de parseCmdLine
 
 
-	parseCmdLine_Return = parseCmdLine(argc, argv, parseCallback, UserData);	//Invoco al parse y almaceno su retorno
-
-	switch (parseCmdLine_Return)																//Si hubo errores durante la ejecucion																						//de parseCmdLine se muestra en pantalla
-	{																							//su origen
-	case EMPTY_ARGS: printf("No ha ingresado ningun argumento en linea de comandos\n");
-		break;
-
-	case OVERFLOW_ARGS: printf("La cantidad de argumentos excede el maximo de %d\n", MAX_ARGS);
-		break;
-
-	case SINTAX_ERROR: printf("Su ingreso ha sido incorrecto (Formato: -clave valor // parametro)\n");
-		break;
+	if (parseCmdLine(argc, argv, parseCallback, &UserData) == -1)	//Invoco al parse y almaceno su retorno
+	{
+		printf("Ingreso mal los parametros fila, col, robots, modo");
+		return 0;
+	}
 	
-	}*/
-
-	
-
+	printf("fil %d\n", UserData[fil]);
+	printf("col %d\n", UserData[col]);
+	printf("robots %d\n", UserData[robots]);
+	printf("mode %d\n", UserData[mode]);
+	while (1);
 
 	if (init_allegro(allegro_p)) //Inicializo allegro
 	{
@@ -81,7 +77,7 @@ int main(int argc, char **argv)
 
 
 
-int parseCallback(char *key, char *value, void *UserData)
+int parseCallback(const char *key,const char *value, void *UserData)
 {
 	if (key == NULL)
 	{
@@ -91,39 +87,51 @@ int parseCallback(char *key, char *value, void *UserData)
 	}
 	if (key != NULL && value != NULL && (*value) != '-')
 	{
-		switch(*(key+1))
+		printf("key %c\n", *key);
+		switch (*key)
 		{
-		case 'f':	if((int)atoi(value)>70 || (int)atoi(value)<0)
+			case 'f':	if ((int)atoi(value) > 70 || (int)atoi(value) < 0)
+						{
+							return 0;
+						}
+						else
+						{
+							*((int*)UserData) = (int)atoi(value);
+						}
+						break;
+
+			case 'c':	if ((int)atoi(value) > 100 || (int)atoi(value) < 0)
+						{
+							return 0;
+						}
+						else
+						{
+							*(((int*)UserData)+1) = (int)atoi(value);
+						}
+						break;
+
+			case 'r':	if ((int)atoi(value) < 0)
 					{
 						return 0;
-		}
+					}
 					else
 					{
-						*((int*)UserData) = (int)atoi(value);
+						*(((int*)UserData) + 2) = (int)atoi(value);
 					}
 					break;
 
-		case 'c':	if ((int)atoi(value) > 100 || (int)atoi(value) < 0)
-					{
-						return 0;
-					}
-					else
-					{
-						*((int*)UserData+1) = (int)atoi(value);
-					}
-					break;
-
-		case 'r':	if ((int)atoi(value) < 0)
-					{
-						return 0;
-					}
-					else
-					{
-						*((int*)UserData + 2) = (int)atoi(value);
-					}
-					break;
-		
-		default:	return 0;
+			case 'm':	if ((int)atoi(value) == 1)
+						{
+							*(((int*)UserData) + 3) = (int)atoi(value);
+						}else if ((int)atoi(value) == 2)
+							{
+								*(((int*)UserData) + 3) = (int)atoi(value);
+							}
+							else
+								{	return 0;
+								}
+							break;
+			default:	return 0;
 		
 		}
 

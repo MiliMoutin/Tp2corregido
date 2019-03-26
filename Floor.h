@@ -16,5 +16,5 @@ PFloor createFloor(int m, int n);
 bool isClean(PFloor f);
 bool clean(PFloor f, double x, double y);
 void destroyFloor(PFloor f);
-bool validRange(PFloor f, double x, double y, double angle);
+bool validRange(PFloor f, double x, double y, double angle,float);
 bool isCleanBaldosa(PFloor f, double x, double y);

@@ -59,7 +59,7 @@ int Mode1(PSimulation p, allegro_t * allegro_p, int mode) {
 		}
 		for (int i = 0; i < p->nRobots; i++) {
 			/*moveRobot(ROBI, 1, angleRob(ROBI));*/
-			if (validRange(p->f, whereIsRobX(ROBI), whereIsRobY(ROBI), angleRob(ROBI))) {
+			if (validRange(p->f, whereIsRobX(ROBI), whereIsRobY(ROBI), angleRob(ROBI),size_floor)) {
 					moveRobot(ROBI, 1);
 					clean(p->f, whereIsRobX(ROBI), whereIsRobY(ROBI));
 					/*Clean_floor(whereIsRobX(ROBI), whereIsRobY(ROBI), size_floor);*/
@@ -73,7 +73,7 @@ int Mode1(PSimulation p, allegro_t * allegro_p, int mode) {
 		p->TickCount++;
 		if (mode == 1) {
 			al_flip_display();
-			al_rest(0.5);
+			al_rest(0.1);
 		}
 	}
 	for (int k = 0; k < p->n; k++) {
