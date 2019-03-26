@@ -1,34 +1,58 @@
+#include <ctype.h>
+#include <stdio.h>
 #include "ParseCmdLine.h"
 
-int parseCmdLine (int argc, char *argv[], pCallback CallbackFunc, void *UserData)
+/*
+Esta funcion valida la forma de lo ingresado por linea de comandos y utiliza una funcion recibida para validar su coherencia
+Recibe:
+	argc: cantidad de argumentos a analizar
+	argv: argumentos a analizar
+	checkInputs: funcion que contiene los criterios de validacion segun la coherencia de los argumentos
+	userData: puntero hacia una zona designada por el usuario para pasar a la funcion checkInputs
+Devuelve:
+	-1 si hubo un error en el formato o coherencia de lo ingresado
+	sum - la suma de la cantidad de opciones y parametros - si no hubo ningun error
+
+Clave: Argumento que comienza con '-' y requiere un valor como siguiente argumento. No puede ser vacia
+Valor: Argumento precededido por una clave. No puede ser vacio
+Parámetro: Argumento que no comienza con '-' y no es precedido por una clave
+*/
+int parseCmdLine(int argc, char const *argv[], pCallback checkInputs, void * userData)
 {
-	int index = 1;					//Contador de argumentos que comienza en 1 ya que el titulo del
-									//archivo no se toma en cuenta
-	int CountParam=0;
+	int i;
+	int sum = 0;
 
-	if (argc == NO_ARGUMENTS)	//Filtros iniciales para desestimar los ingresos sin 
-		return EMPTY_ARGS;		//argumentos, o lo ingresos con demasiados
-	else if (argc > MAX_ARGS)	//argumentos definidos en MAX_ARGS (ParseCmdLine.h)
-		return OVERFLOW_ARGS;
-
-	while (index < argc)			
-	{		
-									//Evaluo si el primer caracter del argumento es un guion para
-		if (*argv[index] == '-')	//determinar si es un parametro o una clave
-		{						
-			if (!CallbackFunc(argv[index], argv[index+1], UserData))	//Si es una clave, llamo a la funcion de callback
+	for(i = 1; i < argc; i++)
+	{
+		if(*argv[i] == '-')
+		{
+			if(argv[i][1] == '\0')	//Analiza si el caracter siguiente al guion es vacio
 			{
-				return SINTAX_ERROR;							//con el key, el value y un puntero para almacenarlos
+				printf("%s\n", "Missing Key");
+				return ERROR;
 			}
-			index++;
-		}														//En caso de devolver "0", termina la ejecucion
+			else if(i == argc-1)	//Analiza si no existe valor para la opcion actual
+			{
+				printf("%s\n", "Missing Value");
+				return ERROR;
+			}
+			else if(!(checkInputs(argv[i]+1, argv[i+1], userData)))	//Analiza la validez de la opcion segun lo determinado por el Callback
+			{
+				printf("%s\n", "Program terminated due to invalid option/value.");
+				return ERROR;
+			}
+			else
+				i++;	//Si la opcion es valida, se incrementa el indice para saltear el valor
+		}
 		else
 		{
-			CountParam++;
-			if (!CallbackFunc(NULL, argv[index], UserData))			//Si es un parametro, llamo a la funcion de callback
-				return SINTAX_ERROR;
-		}														//para almacenarlo. En caso de devolver "0", termina la ejecucion
-		index++;
+			if(!(checkInputs(NULL, argv[i], userData)))	//Analiza la validez del parametro segun lo determinado por el Callback
+			{
+				printf("%s\n", "Program terminated due to invalid parameter");
+				return ERROR;
+			}
+		}
+		sum++;	//Si lo analizado es valido, se suma a la cuenta total de opciones y parametros
 	}
-	return (CountParam);	//Si la ejecucion fue exitosa, devuelvo la cantidad de paramtros (Sin el nombre del archivo)
+	return sum;
 }

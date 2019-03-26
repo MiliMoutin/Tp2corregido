@@ -24,8 +24,8 @@ int parseCallback(char *, char *, void *);	 //Declaracion de la funcion de callb
 
 
 
-#define FILAS	30
-#define COLUMNAS	30
+#define FILAS	10
+#define COLUMNAS	10
 
 
 

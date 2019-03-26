@@ -47,3 +47,4 @@ void Create_dirty_floor(int col, int fil, float size_floor); //coloca todos los 
 void Clean_floor(int x, int y, float);
 void Set_robot(float x, float y, float angle, allegro_t * allegro_p, float size_floor);
 int Select_mode(int fil, int col,allegro_t*);
+void al_ShowTickCount(int tickcount, allegro_t* allegro_p);
