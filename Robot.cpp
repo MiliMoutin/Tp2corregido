@@ -19,6 +19,8 @@ bool setLocation(PRobot r, double x, double y, double angle) {
 	return true;
 }
 
+bool moveRobot()
+
 double whereIsRobX(PRobot r) {
 	return wherex(r->p);
 }

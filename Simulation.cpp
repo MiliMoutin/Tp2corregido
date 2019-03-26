@@ -31,7 +31,10 @@ int Mode1(PSimulation p, allegro_t * allegro_p) {
 	}
 	al_flip_display();
 	al_rest(10.0);
+	for (int i = 0; i < p->nRobots; i++) {
 
+		while(!validRange(p->f, whereIsRobX( ), 
+	}
 	return p->TickCount;
 
 	
