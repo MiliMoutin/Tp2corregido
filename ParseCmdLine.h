@@ -1,15 +1,35 @@
-#pragma once
-#include <stdio.h>
+/*
 
-//Todos los valores de los "defines" estan entre parentesis para 
-//protegerlos de un error de precedencia
+parser.h
 
-#define		NO_ARGUMENTS	(1)			//Valor de argc cuando se ejecuta el programa sin argumentos
-#define		SINTAX_ERROR	(-1)		//Valor que devuleve si hubo error de sintaxis
-#define		EMPTY_ARGS		(SINTAX_ERROR-1)	//Valor que devuleve parseCmdLine si no se ingresaron argumentos
-#define		OVERFLOW_ARGS	(EMPTY_ARGS-1)		//Valor que devuleve parseCmdLine si se excedieron los argumentos
-#define		MAX_ARGS		(3)				//Valor maximo de argumentos de entrada
+*/
 
 
-typedef int (*pCallback) (char *, char *, void *);			//Declaracion de la funcion de callback (se encuentra en main.c)
-int			parseCmdLine (int, char **, pCallback, void *);	//Declaracion de la funcion de parseo de los argumentos
+#ifndef PARSER_H
+#define PARSER_H
+
+#define ERROR -1
+
+
+
+
+typedef int(*pCallback) (char *, char *, void *);
+
+/*
+Esta funcion valida la forma de lo ingresado por linea de comandos y utiliza una funcion recibida para validar su coherencia
+Recibe:
+	argc: cantidad de argumentos a analizar
+	argv: argumentos a analizar
+	checkInputs: funcion que contiene los criterios de validacion segun la coherencia de los argumentos
+	userData: puntero hacia una zona designada por el usuario para pasar a la funcion checkInputs
+Devuelve:
+	-1 si hubo un error en el formato o coherencia de lo ingresado
+	sum - la suma de la cantidad de opciones y parametros - si no hubo ningun error
+
+Clave: Argumento que comienza con '-' y requiere un valor como siguiente argumento. No puede ser vacia
+Valor: Argumento precededido por una clave. No puede ser vacio
+Parámetro: Argumento que no comienza con '-' y no es precedido por una clave
+*/
+int parseCmdLine(int argc, char const *argv[], pCallback checkInputs, void * userData);
+
+#endif

@@ -195,7 +195,7 @@ void Set_robot(float x, float y,float angle, allegro_t * allegro_p,float size_fl
 {
 
 	//al_draw_scaled_rotated_bitmap(allegro_p->cleaner_robot,x*size_floor, y*size_floor, x*size_floor, y*size_floor, 0.0005*size_floor, 0.0005*size_floor,angle, 0);
-	al_draw_filled_circle(x*size_floor, y*size_floor, 0.25*size_floor, al_map_rgb(140, 210, 50));
+	al_draw_filled_circle(x*size_floor, y*size_floor, 0.2*size_floor, al_map_rgb(140, 210, 50));
 	return;
 
 }
@@ -250,4 +250,40 @@ int Select_mode(int fil, int col,allegro_t* allegro_p)
 	//al_draw_justified_text(allegro_p->font, al_map_rgb(255, 255, 255), 0, 100, 0, 200, 1, str);
 
 	return mode;
+}
+
+
+
+void ShowTickCount(int tickcount, allegro_t* allegro_p)
+{
+
+	al_clear_to_color(al_map_rgb(0, 0, 0));
+
+	char str[50];
+	sprintf(str, "Cantidad de Tickcount %d",tickcount);
+	al_draw_text(allegro_p->font, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H/2, ALLEGRO_ALIGN_CENTRE, str);
+
+	char * str1 = { "exit" };
+	al_draw_text(allegro_p->font, al_map_rgb(255, 255, 255), SCREEN_W / 2, 3*SCREEN_H / 4, ALLEGRO_ALIGN_CENTRE, str);
+	al_draw_rectangle(SCREEN_W / 2 - 100, SCREEN_H / 4 - 50, SCREEN_W / 2 + 100, SCREEN_H / 4+50, al_map_rgb(255, 255, 255), THICKNESS_LINE);
+	al_flip_display();
+
+	ALLEGRO_MOUSE_STATE state;
+	bool check = false;
+	do {
+		al_get_mouse_state(&state);
+
+		if (state.buttons & 1)
+		{
+			if (state.x >= SCREEN_W / 7 && state.x <= (SCREEN_W / 3 + 50) && state.y >= SCREEN_H / 2 - 100 && state.y <= SCREEN_H / 2)
+			{
+				check = true;
+			}
+		}
+
+
+
+	} while (check == false);
+
+	return;
 }
