@@ -88,8 +88,9 @@ int Mode1(PSimulation p, allegro_t * allegro_p, int mode) {
 		Set_robot(whereIsRobX(ROBZ), whereIsRobY(ROBZ), angleRob(ROBZ), allegro_p, size_floor);
 	}
 	al_rest(1);
-
-	al_ShowTickCount(p->TickCount, allegro_p);
+	if (mode == 1) {
+		al_ShowTickCount(p->TickCount, allegro_p);
+	}
 	return p->TickCount;
 
 }
@@ -103,20 +104,27 @@ void destroySimulation(PSimulation p) {
 	free(p);
 }
 
-/*void Mode2(PSimulation p, allegro_t * allegro_p) {
+void Mode2(PSimulation p, allegro_t * allegro_p) {
 	int times;
-	int tickAnt;
-	int TickProm;
-	for (int i = 1; ; i++) {
-		tickAnt = TickProm;
+	int tickAnt = 0;
+	int TickProm = 0;
+	int* tick_v = (int*)malloc(sizeof(int));
+	for (int i = 1;abs(tick_v[i] - tick_v[i - 1]) < 0, 1; i++) {
 		times = TIMES;
-		int aux = 0;
 		PSimulation p2 = createSimulation(p->n, p->m, i);
-		while (times != 0) {
-			TickProm+=Mode1(p, allegro_p, 2);
+		while (times != 0)
+		{
+			TickProm += Mode1(p2, allegro_p, 2); //simula el modo 1 1000 veces y guarda la suma de todos los tick
 			times--;
 		}
-		TickProm = TickProm / TIMES;
-	}*/
+		TickProm = TickProm / TIMES; //guarda el promedio de todos los tick sobre 1000
+
+		tick_v[i] = TickProm;	// va guardando en el arreglo todos los valores de las sim
+		tick_v = (int *)realloc(tick_v, sizeof(int)*(i));	//agrega mas espacio
+
+		destroySimulation(p2);
+
+	}
+}
 
 
