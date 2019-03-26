@@ -22,6 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{6A0B6A3C-670B-4D63-9D14-02D06E4E38D6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -101,11 +102,17 @@
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ParseCmdLine.cpp" />
+    <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="tp2_allegro.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="Robot.h" />
+    <ClInclude Include="Position.h" />
     <ClInclude Include="ParseCmdLine.h" />
+    <ClInclude Include="Simulation.h" />
     <ClInclude Include="tp2_allegro.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
