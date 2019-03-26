@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 
 
 	Simulation_data=createSimulation(COLUMNAS, FILAS, 10);
-	Mode1(Simulation_data, allegro_p);
+	Mode1(Simulation_data, allegro_p, 1);
 
 	al_destroy_display(allegro_data.display); //destruyo display display
 

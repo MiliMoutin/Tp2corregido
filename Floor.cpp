@@ -40,10 +40,6 @@ bool clean(PFloor f, double x, double y) {
 	return true;
 }
 
-void destroyFloor(PFloor f) {
-	free(f->baldosas);
-	free(f);
-}
 
 bool validRange(PFloor f, double x, double y, double angle) {
 	double x_ = x + cos((angle*M_PI) / 180);
@@ -62,10 +58,10 @@ bool isCleanBaldosa(PFloor f, double x, double y) {
 	return *(f->baldosas + ((f->n)*(int)(floor(x))) + (int)floor(y));
 }
 
-/*void destroyFloor(PFloor f) {
+void destroyFloor(PFloor f) {
 	free(f->baldosas);
 	free(f);
-}*/
+}
 
 
 

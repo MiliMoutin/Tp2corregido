@@ -16,6 +16,6 @@ typedef struct {
 typedef Simulation* PSimulation;
 
 PSimulation createSimulation(int n, int m, int nRobots);
-int Mode1(PSimulation s, allegro_t * allegro_p);
+int Mode1(PSimulation s, allegro_t * allegro_p, int mode);
 void Mode2(PSimulation s);
-void destroySimulation(PSimulation s);
+void destroySimulation(PSimulation p);
