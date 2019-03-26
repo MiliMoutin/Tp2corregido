@@ -29,7 +29,7 @@ bool isClean(PFloor p) {
 	return clean;
 }
 
-bool clean(PFloor f, int x, int y) {
+bool clean(PFloor f, double x, double y) {
 	int i = floor(x);
 	int j = floor(y);
 	if (*(f->baldosas + (i*f->n) + j) == true) {
