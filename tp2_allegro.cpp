@@ -200,6 +200,7 @@ void Set_robot(float x, float y,float angle, allegro_t * allegro_p,float size_fl
 
 }
 
+
 /*
 Select Mode
 cuando se invoca esta funcion pasa a tener todo el control hasta que se selecciona un modo.
