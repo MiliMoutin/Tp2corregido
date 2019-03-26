@@ -194,8 +194,8 @@ devuelve: nada
 void Set_robot(float x, float y,float angle, allegro_t * allegro_p,float size_floor)
 {
 
-	al_draw_scaled_rotated_bitmap(allegro_p->cleaner_robot,x*size_floor, y*size_floor, x*size_floor, y*size_floor, 0.0005*size_floor, 0.0005*size_floor,angle, 0);
-
+	//al_draw_scaled_rotated_bitmap(allegro_p->cleaner_robot,x*size_floor, y*size_floor, x*size_floor, y*size_floor, 0.0005*size_floor, 0.0005*size_floor,angle, 0);
+	al_draw_filled_circle(x*size_floor, y*size_floor, 0.05*size_floor, al_map_rgb(140, 210, 50));
 	return;
 
 }
