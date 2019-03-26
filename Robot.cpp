@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <math.h>
 #include "Robot.h"
 
 using namespace std;
@@ -19,7 +20,10 @@ bool setLocation(PRobot r, double x, double y, double angle) {
 	return true;
 }
 
-bool moveRobot()
+bool moveRobot(PRobot r, int delta) {
+	movePoint(r->p, delta, angle(r->p));
+	return true;
+}
 
 double whereIsRobX(PRobot r) {
 	return wherex(r->p);
@@ -31,3 +35,16 @@ double angleRob(PRobot r) {
 	return angle(r->p);
 }
 
+void destroyRobot(PRobot r) {
+	destroyPosition(r->p);
+	free(r);
+}
+
+bool nextCoordinate(PRobot bot) // recibe el punto y el maximo valor que pueden tener las coordenadas en el piso creado
+{
+	double x = whereIsRobX(bot);
+    double y = whereIsRobY(bot);
+    double angulo = angleRob(bot);
+	setCoordinates(bot->p, x, y, rand()%MAX_ANGLE); //guarda nueva angulo
+		return true;
+}

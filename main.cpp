@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <stdint.h>
 #include <stdbool.h>
+#include <time.h>
 
 #include "tp2_allegro.h"
 #include "Floor.h"
@@ -23,8 +24,8 @@ int parseCallback(char *, char *, void *);	 //Declaracion de la funcion de callb
 
 
 
-#define FILAS	10
-#define COLUMNAS	10
+#define FILAS	5
+#define COLUMNAS	5
 
 
 
@@ -34,6 +35,8 @@ int main(int argc, char **argv)
 	allegro_t * allegro_p = &allegro_data;
 
 	PSimulation Simulation_data;
+
+	srand(time(NULL));
 
 	//parsecmdline
 	
@@ -66,7 +69,7 @@ int main(int argc, char **argv)
 	}
 
 
-	Simulation_data=createSimulation(FILAS, COLUMNAS, 5);
+	Simulation_data=createSimulation(COLUMNAS, FILAS, 10);
 	Mode1(Simulation_data, allegro_p);
 
 	al_destroy_display(allegro_data.display); //destruyo display display

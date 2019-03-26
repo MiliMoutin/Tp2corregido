@@ -1,4 +1,5 @@
 #pragma once
+
 typedef struct{
 	double x;
 	double y;
@@ -13,3 +14,4 @@ bool movePoint(PPosition po, double delta, double angle);
 double wherex(PPosition po);
 double wherey(PPosition po);
 double angle(PPosition po);
+void destroyPosition(PPosition po);

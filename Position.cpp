@@ -25,7 +25,7 @@ bool setCoordinates(PPosition po, double x, double y, double angle) {
 }
 
 bool movePoint(PPosition po, double delta, double angle) {
-	return setCoordinates(po, cos((180 / 3.1415)*angle)*delta, sin((180 / 3.1415)*angle)*delta, angle);
+	return setCoordinates(po, wherex(po)+(cos((3.1415 / 180)*angle)*delta), wherey(po)+(sin((3.1415 / 180)*angle)*delta), angle);
 }
 
 double wherex(PPosition po) {
@@ -39,3 +39,8 @@ double wherey(PPosition po) {
 double angle(PPosition po) {
 	return po->angle;
 }
+
+void destroyPosition(PPosition po) {
+	free(po);
+}
+
