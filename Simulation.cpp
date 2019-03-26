@@ -17,8 +17,8 @@ PSimulation createSimulation(int n, int m, int nRobots) {
 }
 
 int Mode1(PSimulation p, allegro_t * allegro_p, int mode) {
-		float size_floor_h = SCREEN_H / p->m;
-		float size_floor_w = SCREEN_W / p->n;
+		float size_floor_h = SCREEN_H / (p->m);
+		float size_floor_w = SCREEN_W / (p->n);
 		float size_floor = size_floor_h > size_floor_w ? size_floor_w : size_floor_h;   //Determino tamaño de baldosa para que se ajuste a la ventana
 		if (mode == 1) {
 			Create_dirty_floor(p->n, p->m, size_floor);
@@ -42,6 +42,7 @@ int Mode1(PSimulation p, allegro_t * allegro_p, int mode) {
 
 
 	while (isClean(p->f)==false) {
+		al_clear_to_color(al_map_rgb(0, 0, 0));
 		if (mode == 1) {
 			Create_dirty_floor(p->n, p->m, size_floor);
 			for (int k = 0; k < p->n; k++) {
@@ -86,7 +87,9 @@ int Mode1(PSimulation p, allegro_t * allegro_p, int mode) {
 	for (int z = 0; z < p->nRobots;z++) {
 		Set_robot(whereIsRobX(ROBZ), whereIsRobY(ROBZ), angleRob(ROBZ), allegro_p, size_floor);
 	}
-	al_rest(0.5);
+	al_rest(1);
+
+	al_ShowTickCount(p->TickCount, allegro_p);
 	return p->TickCount;
 
 }

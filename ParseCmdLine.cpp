@@ -1,6 +1,6 @@
 #include <ctype.h>
 #include <stdio.h>
-#include "parser.h"
+#include "ParseCmdLine.h"
 
 /*
 Esta funcion valida la forma de lo ingresado por linea de comandos y utiliza una funcion recibida para validar su coherencia
@@ -22,7 +22,7 @@ int parseCmdLine(int argc, char const *argv[], pCallback checkInputs, void * use
 	int i;
 	int sum = 0;
 
-	for(i = 1, i < argc, i++)
+	for(i = 1; i < argc; i++)
 	{
 		if(*argv[i] == '-')
 		{
@@ -34,7 +34,7 @@ int parseCmdLine(int argc, char const *argv[], pCallback checkInputs, void * use
 			else if(i == argc-1)	//Analiza si no existe valor para la opcion actual
 			{
 				printf("%s\n", "Missing Value");
-				return ERROR
+				return ERROR;
 			}
 			else if(!(checkInputs(argv[i]+1, argv[i+1], userData)))	//Analiza la validez de la opcion segun lo determinado por el Callback
 			{

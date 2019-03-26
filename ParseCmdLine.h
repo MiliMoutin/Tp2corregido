@@ -13,7 +13,7 @@ parser.h
 
 
 
-typedef int(*pCallback) (char *, char *, void *);
+typedef int(*pCallback) (const char *,const char *, void *);
 
 /*
 Esta funcion valida la forma de lo ingresado por linea de comandos y utiliza una funcion recibida para validar su coherencia
