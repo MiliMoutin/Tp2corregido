@@ -22,8 +22,10 @@ PFloor createFloor(int n, int m) {
 }
 
 bool isClean(PFloor p) {
-	for (int i = 0; i < p->m*p->n; i++) {
-		if (p->baldosas[i] == false) {
+	for (int i = 0; i < p->m*p->n; i++) 
+	{
+		if (p->baldosas[i] == false) 
+		{
 			return false;
 		}
 	}
@@ -31,9 +33,10 @@ bool isClean(PFloor p) {
 }
 
 bool clean(PFloor f, double x, double y) {
-	int i = floor(x);
-	int j = floor(y);
-	if (*(f->baldosas + (i*f->n) + j) == true) {
+	int j = floor(x);
+	int i = floor(y);
+	if (*(f->baldosas + (i*f->n) + j) == true) 
+	{
 		return false;
 	}
 	*(f->baldosas + (i*f->n) + j) = true;
@@ -44,7 +47,7 @@ bool clean(PFloor f, double x, double y) {
 bool validRange(PFloor f, double x, double y, double angle,float size) {
 	double x_ = x + cos((angle*M_PI) / 180);
 	double y_ = y + sin((angle*M_PI) / 180);
-	if ((x_ > (f->n)-0.3) || (x_ < 0.3) || (y_ > (f->m) - 0.3) || (y_ < 0.3))
+	if ((x_ > ((f->n)-0.3)) || ((x_ < 0.3)) || (y_ > ((f->m) - 0.3)) || (y_ < 0.2))
 		//verfica que la nueva posicion no se salga del mapa
 	{
 		return false ;
@@ -59,8 +62,9 @@ bool isCleanBaldosa(PFloor f, double x, double y) {
 }
 
 void destroyFloor(PFloor f) {
-	free(f->baldosas);
+	//free(f->baldosas);
 	free(f);
+	return;
 }
 
 

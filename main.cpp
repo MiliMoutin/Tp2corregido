@@ -24,13 +24,13 @@ int parseCallback(const char *,const char *, void *);	 //Declaracion de la funci
 
 
 
-#define FILAS	10
+#define FILAS	15
 #define COLUMNAS	10
 #define MAX_ARGS 4
 
 
 
-int main(int argc,const char *argv[])
+int main(int argc, const char *argv[])
 {
 	allegro_t allegro_data;						//Estructura para allegro
 	allegro_t * allegro_p = &allegro_data;
@@ -43,30 +43,39 @@ int main(int argc,const char *argv[])
 	enum opciones { fil, col, robots, mode };
 
 	//MAX_ARGS =4 -> UserData guarda Fila, Columna, Nrobots
-	int		UserData[MAX_ARGS];		//Arreglo de strings donde se guardan los parametros
+	int		UserData[MAX_ARGS];		//Arreglo de int donde se guardan las opciones
 	int		parseCmdLine_Return;		//Variable que almacena el retorno de parseCmdLine
-
 
 	if (parseCmdLine(argc, argv, parseCallback, &UserData) == -1)	//Invoco al parse y almaceno su retorno
 	{
 		printf("Ingreso mal los parametros fila, col, robots, modo");
 		return 0;
 	}
-	
+
 	printf("fil %d\n", UserData[fil]);
 	printf("col %d\n", UserData[col]);
 	printf("robots %d\n", UserData[robots]);
 	printf("mode %d\n", UserData[mode]);
-	while (1);
+	//while (1);
+
+
 
 	if (init_allegro(allegro_p)) //Inicializo allegro
 	{
 		return 0; //si fallas devuelve 0
 	}
+	/*
+	double arr[] = { 100,92,88,80,75,70,60,55,40,30,29,28,27,26,10 };
+	al_show_graph(arr, 20);
+	al_flip_display();
+	while (1);*/
 
 
 	Simulation_data=createSimulation(COLUMNAS, FILAS, 10);
-	Mode1(Simulation_data, allegro_p, 1);
+	//Mode1(Simulation_data, allegro_p, 1);
+	Mode2(Simulation_data, allegro_p);
+	al_flip_display();
+	al_rest(10.0);
 
 	al_destroy_display(allegro_data.display); //destruyo display display
 

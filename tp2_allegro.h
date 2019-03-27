@@ -22,8 +22,8 @@
 
 
 #define FPS			60.0 //cantidad de cuadros por segundo que se mostrara en pantalla
-#define SCREEN_W		400
-#define SCREEN_H		400
+#define SCREEN_W		800
+#define SCREEN_H		800
 #define QUIT    'q'
 #define THICKNESS_LINE 1.5
 
@@ -48,3 +48,5 @@ void Clean_floor(int x, int y, float);
 void Set_robot(float x, float y, float angle, allegro_t * allegro_p, float size_floor);
 int Select_mode(int fil, int col,allegro_t*);
 void al_ShowTickCount(int tickcount, allegro_t* allegro_p);
+void al_show_graph(double * indexTicks, int Nmax);
+double MaxValue(double * indexTicks, int Nmax);

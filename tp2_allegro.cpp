@@ -194,8 +194,8 @@ devuelve: nada
 void Set_robot(float x, float y,float angle, allegro_t * allegro_p,float size_floor)
 {
 
-	al_draw_scaled_rotated_bitmap(allegro_p->cleaner_robot,0, 0, x*size_floor,y*size_floor, 0.001*size_floor, 0.001*size_floor,angle, 0);
-	//al_draw_filled_circle(x*size_floor, y*size_floor, 0.3*size_floor, al_map_rgb(140, 210, 50));
+	//al_draw_scaled_rotated_bitmap(allegro_p->cleaner_robot,0, 0, x*size_floor,y*size_floor, 0.001*size_floor, 0.001*size_floor,angle, 0);
+	al_draw_filled_circle(x*size_floor, y*size_floor, 0.3*size_floor, al_map_rgb(140, 210, 50));
 	return;
 
 }
@@ -286,4 +286,49 @@ void al_ShowTickCount(int tickcount, allegro_t* allegro_p)
 	} while (check == false);
 
 	return;
+}
+
+
+void al_show_graph(double * indexTicks, int Nmax)
+{
+	//printf("Nmax: %d\n",Nmax);
+	al_draw_filled_rectangle(SCREEN_W*0.01, SCREEN_H*0.05, SCREEN_W*0.99, SCREEN_H*0.95, al_map_rgb(240, 240, 240));
+	al_draw_line(SCREEN_W * 0.025, SCREEN_H *0.1, SCREEN_W*0.025, SCREEN_H*0.905, al_map_rgb(0, 0, 0), 3*THICKNESS_LINE);
+	al_draw_line(SCREEN_W * 0.025, SCREEN_H *0.905, SCREEN_W*0.97, SCREEN_H*0.905, al_map_rgb(0, 0, 0), 3*THICKNESS_LINE);
+
+	float rangeX = SCREEN_W * (0.97 - 0.03);
+	float rangeY = SCREEN_H * (0.9 - 0.2);
+
+	float deltaPointsX = rangeX/(float)Nmax;
+	float deltaPointsY = rangeY/MaxValue(indexTicks, Nmax);
+	//printf("%f\n", MaxValue(indexTicks, Nmax));
+	//printf("%f \n %f", deltaPointsX, deltaPointsY);
+
+	for (int i = 0; i < Nmax; i++)
+	{
+		al_draw_filled_rectangle(SCREEN_W*0.03 + deltaPointsX * i, SCREEN_H*0.9 - deltaPointsY * indexTicks[i], SCREEN_W*0.03 + deltaPointsX * (i + 1) - SCREEN_W * 0.01, SCREEN_H*0.9, al_map_rgb(0, 180, 240));
+	}
+
+
+	ALLEGRO_FONT *font = al_load_ttf_font("OpenSans-Bold.ttf", 15, 0);
+	char str1[50];
+	sprintf(str1, "TickCountMax: %f", MaxValue(indexTicks,Nmax));
+	al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_W * 0.025 + 0.01, SCREEN_H*0.1,0, str1);
+
+	char str2[50];
+	sprintf(str2, "cantRobotMax: %d", Nmax);
+	al_draw_text(font, al_map_rgb(0, 0, 0), SCREEN_W*0.8, SCREEN_H*0.9, 0, str2);
+	return;
+
+}
+
+double MaxValue(double * indexTicks,int Nmax)
+{
+	double MaxVal = 0.0;
+	for (int i = 0; i < Nmax; i++)
+	{
+		
+		MaxVal = indexTicks[i] > MaxVal ? indexTicks[i] : MaxVal;
+	}
+	return MaxVal;
 }
