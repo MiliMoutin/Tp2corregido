@@ -109,7 +109,7 @@ void Mode2(PSimulation p, allegro_t * allegro_p) {
 	int tickAnt = 0;
 	int TickProm = 0;
 	int* tick_v = (int*)malloc(sizeof(int));
-	for (int i = 1;abs(tick_v[i] - tick_v[i - 1]) < 0, 1; i++) {
+	for (int i = 1; i==1 || abs(tick_v[i] - tick_v[i - 1]) > 0.1; i++) {
 		times = TIMES;
 		PSimulation p2 = createSimulation(p->n, p->m, i);
 		while (times != 0)
