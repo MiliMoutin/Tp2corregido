@@ -20,7 +20,7 @@ int Mode1(PSimulation p, allegro_t * allegro_p, int mode) {
 
 		float size_floor_h = SCREEN_H / (p->m);
 		float size_floor_w = SCREEN_W / (p->n);
-		float size_floor = size_floor_h > size_floor_w ? size_floor_w : size_floor_h;   //Determino tamaÒo de baldosa para que se ajuste a la ventana
+		float size_floor = size_floor_h > size_floor_w ? size_floor_w : size_floor_h;   //Determino tama√±o de baldosa para que se ajuste a la ventana
 		
 		
 	if (mode == 1) 
@@ -118,7 +118,7 @@ int Mode1(PSimulation p, allegro_t * allegro_p, int mode) {
 
 void destroySimulation(PSimulation p) {
 	for (int i = 0; i < p->nRobots; i++) {
-		free(ROBI);
+		destroyRobot(ROBI);
 	}
 	free(p->Robots);
 	destroyFloor(p->f);
