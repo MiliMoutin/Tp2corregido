@@ -17,5 +17,5 @@ bool moveRobot(PRobot r, int delta);
 double whereIsRobY(PRobot r);
 bool nextCoordinate(PRobot bot);
 double angleRob(PRobot r);
-void destroyRob(PRobot r);
+void destroyRobot(PRobot r);
 
